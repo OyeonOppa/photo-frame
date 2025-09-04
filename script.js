@@ -68,13 +68,28 @@ function drawCanvas(userImg, frameSrc) {
   frame.src = frameSrc;
 }
 
-// ดาวน์โหลด
+// ดาวน์โหลด (รองรับ LINE / WebView)
 downloadBtn.addEventListener("click", () => {
-  const link = document.createElement("a");
-  link.download = "framed-photo.png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
+  if (!userImage) return alert("กรุณาเลือกภาพก่อนดาวน์โหลด");
+
+  canvas.toBlob((blob) => {
+    if (!blob) return alert("เกิดข้อผิดพลาดในการสร้างภาพ");
+
+    const url = URL.createObjectURL(blob);
+
+    // พยายามดาวน์โหลดปกติ
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "framed-photo.png";
+
+    if (navigator.userAgent.match(/(Line|FBAN|FBAV)/i)) {
+      // ถ้าเป็น LINE/FB in-app browser ให้เปิดแท็บใหม่
+      window.open(url, "_blank");
+      alert("กดค้างบนภาพแล้วเลือก 'บันทึกภาพ' เพื่อดาวน์โหลด");
+    } else {
+      link.click();
+    }
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }, "image/png");
 });
-
-
-
