@@ -17,13 +17,9 @@ document.querySelectorAll(".frame-option").forEach(frameEl => {
   });
 });
 
-// ปุ่มเลือกจากแกลอรี
+// เลือกจากแกลอรี่
 galleryBtn.addEventListener("click", () => galleryInput.click());
 galleryInput.addEventListener("change", handleFile);
-
-// ปุ่มถ่ายด้วยกล้อง
-cameraBtn.addEventListener("click", () => cameraInput.click());
-cameraInput.addEventListener("change", handleFile);
 
 // โหลดภาพ
 function handleFile(e) {
@@ -42,11 +38,10 @@ function handleFile(e) {
   reader.readAsDataURL(file);
 }
 
-// ฟังก์ชันวาด
+// วาด canvas
 function drawCanvas(userImg, frameSrc) {
   const frame = new Image();
   frame.onload = function() {
-    // จำกัดสูงสุด 720px
     const maxSize = 720;
     let frameW = frame.width;
     let frameH = frame.height;
@@ -61,11 +56,7 @@ function drawCanvas(userImg, frameSrc) {
     canvas.height = frameH;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // scale อัตราส่วน
-    const scale = Math.min(
-      frameW / userImg.width,
-      frameH / userImg.height
-    );
+    const scale = Math.min(frameW / userImg.width, frameH / userImg.height);
     const newWidth = userImg.width * scale;
     const newHeight = userImg.height * scale;
     const x = (frameW - newWidth) / 2;
@@ -75,21 +66,14 @@ function drawCanvas(userImg, frameSrc) {
     ctx.drawImage(frame, 0, 0, frameW, frameH);
   };
   frame.src = frameSrc;
-
-  const reader = new FileReader();
-reader.onload = function(e) {
-    const base64Image = e.target.result;
-    document.getElementById('result').src = base64Image;
-};
-reader.readAsDataURL(fileInput.files[0]);
-
 }
 
 // ดาวน์โหลด
 downloadBtn.addEventListener("click", () => {
+  if (!userImage) return alert("กรุณาเลือกภาพก่อนดาวน์โหลด");
+
   const link = document.createElement("a");
   link.download = "framed-photo.png";
   link.href = canvas.toDataURL("image/png");
   link.click();
 });
-
