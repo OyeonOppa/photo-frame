@@ -1,0 +1,52 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 10px;
+  background: #f9f9f9;
+  text-align: center;
+}
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+button {
+  font-size: 1rem;
+  padding: 12px;
+  margin: 8px 0;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 8px;
+  border: none;
+  background: #26513c;
+  color: #fff;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 0.9;
+}
+canvas {
+  max-width: 100%;
+  height: auto;
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+.frame-preview {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+.frame-option {
+  width: 70px;
+  height: 70px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  object-fit: cover;
+}
+.frame-option.selected {
+  border-color: #ff4081;
+}

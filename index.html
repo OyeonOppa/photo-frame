@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Frame App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>📸 ใส่กรอบรูป</h1>
+
+  <!-- ปุ่มเลือกจากแกลอรี -->
+  <input type="file" id="galleryInput" accept="image/*" style="display:none">
+  <button id="galleryBtn">เลือกจากแกลอรี</button>
+
+  <!-- ปุ่มถ่ายด้วยกล้อง -->
+  <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none">
+  <button id="cameraBtn">ถ่ายด้วยกล้อง</button>
+
+  <!-- เลือกกรอบ -->
+  <div class="frame-preview">
+    <img src="frame1.png" class="frame-option selected" data-frame="frame1.png">
+    <img src="frame2.png" class="frame-option" data-frame="frame2.png">
+    <img src="frame3.png" class="frame-option" data-frame="frame3.png">
+    <!-- เพิ่มกรอบได้ -->
+  </div>
+
+  <!-- Canvas -->
+  <canvas id="canvas"></canvas>
+
+  <!-- ดาวน์โหลด --><br>
+  <button id="downloadBtn">⬇️ ดาวน์โหลดรูป</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
