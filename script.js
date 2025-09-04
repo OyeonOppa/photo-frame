@@ -69,31 +69,26 @@ function drawCanvas(userImg, frameSrc) {
 }
 
 // ดาวน์โหลด (รองรับ LINE / WebView)
-downloadBtn.addEventListener("click", () => {
+downloadBtn.addEventListener("click", async () => {
   if (!userImage) return alert("กรุณาเลือกภาพก่อนดาวน์โหลด");
 
-  canvas.toBlob((blob) => {
-    if (!blob) return alert("เกิดข้อผิดพลาดในการสร้างภาพ");
+  canvas.toBlob(async (blob) => {
+    if (!blob) return alert("เกิดข้อผิดพลาด");
 
-    const url = URL.createObjectURL(blob);
+    const file = new File([blob], "framed-photo.png", { type: "image/png" });
 
-    // สร้าง <img> แทน <canvas>
-    const imgWindow = window.open("", "_blank");
-    if (imgWindow) {
-      const imgEl = imgWindow.document.createElement("img");
-      imgEl.src = url;
-      imgEl.style.maxWidth = "100%";
-      imgEl.style.height = "auto";
-      imgWindow.document.body.style.textAlign = "center";
-      imgWindow.document.body.appendChild(imgEl);
-
-      alert("กดค้างบนภาพแล้วเลือก 'บันทึกภาพ' เพื่อดาวน์โหลด");
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file], title: "รูปภาพของฉัน" });
+      } catch (err) {
+        alert("แชร์ไม่สำเร็จ: " + err);
+      }
     } else {
-      alert("โปรดอนุญาตให้เปิดหน้าต่างใหม่เพื่อดาวน์โหลด");
+      alert("เบราว์เซอร์นี้ไม่รองรับการดาวน์โหลดบนมือถือ กดแชร์แทนหรือเปิดบนเบราว์เซอร์อื่น");
     }
-
-    setTimeout(() => URL.revokeObjectURL(url), 5000);
   }, "image/png");
 });
+
+
 
 
