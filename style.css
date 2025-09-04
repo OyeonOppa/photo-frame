@@ -2,7 +2,7 @@ body {
   font-family: sans-serif;
   margin: 0;
   padding: 10px;
-  background: #f9f9f9;
+  background-image: url('https://kpi.ac.th/wp-content/uploads/2025/09/ดีไซน์ที่ยังไม่ได้ตั้งชื่อ-12.webp');
   text-align: center;
 }
 h1 {
@@ -50,3 +50,4 @@ canvas {
 .frame-option.selected {
   border-color: #ff4081;
 }
+
