@@ -77,19 +77,23 @@ downloadBtn.addEventListener("click", () => {
 
     const url = URL.createObjectURL(blob);
 
-    // พยายามดาวน์โหลดปกติ
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "framed-photo.png";
+    // สร้าง <img> แทน <canvas>
+    const imgWindow = window.open("", "_blank");
+    if (imgWindow) {
+      const imgEl = imgWindow.document.createElement("img");
+      imgEl.src = url;
+      imgEl.style.maxWidth = "100%";
+      imgEl.style.height = "auto";
+      imgWindow.document.body.style.textAlign = "center";
+      imgWindow.document.body.appendChild(imgEl);
 
-    if (navigator.userAgent.match(/(Line|FBAN|FBAV)/i)) {
-      // ถ้าเป็น LINE/FB in-app browser ให้เปิดแท็บใหม่
-      window.open(url, "_blank");
       alert("กดค้างบนภาพแล้วเลือก 'บันทึกภาพ' เพื่อดาวน์โหลด");
     } else {
-      link.click();
+      alert("โปรดอนุญาตให้เปิดหน้าต่างใหม่เพื่อดาวน์โหลด");
     }
 
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
   }, "image/png");
 });
+
+
