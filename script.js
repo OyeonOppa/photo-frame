@@ -77,6 +77,14 @@ function drawCanvas(userImg, frameSrc) {
     ctx.drawImage(frame, 0, 0, frameW, frameH);
   };
   frame.src = frameSrc;
+
+  const reader = new FileReader();
+reader.onload = function(e) {
+    const base64Image = e.target.result;
+    document.getElementById('result').src = base64Image;
+};
+reader.readAsDataURL(fileInput.files[0]);
+
 }
 
 // ดาวน์โหลด
