@@ -1,7 +1,5 @@
 const galleryBtn = document.getElementById("galleryBtn");
 const galleryInput = document.getElementById("galleryInput");
-const cameraBtn = document.getElementById("cameraBtn");
-const cameraInput = document.getElementById("cameraInput");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const downloadBtn = document.getElementById("downloadBtn");
@@ -94,3 +92,4 @@ downloadBtn.addEventListener("click", () => {
   link.href = canvas.toDataURL("image/png");
   link.click();
 });
+
