@@ -72,8 +72,17 @@ function drawCanvas(userImg, frameSrc) {
 downloadBtn.addEventListener("click", () => {
   if (!userImage) return alert("กรุณาเลือกภาพก่อนดาวน์โหลด");
 
-  const link = document.createElement("a");
-  link.download = "framed-photo.png";
-  link.href = canvas.toDataURL("image/png");
-  link.click();
+  canvas.toBlob((blob) => {
+    if (!blob) return;
+
+    const url = URL.createObjectURL(blob);
+
+    // เปิดแท็บใหม่ (LINE จะให้ user กดเซฟภาพเอง)
+    window.open(url, "_blank");
+
+    // ปล่อย URL หลังใช้
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }, "image/png");
 });
+
+
